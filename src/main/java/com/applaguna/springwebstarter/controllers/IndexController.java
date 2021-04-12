@@ -4,6 +4,7 @@ import com.applaguna.springwebstarter.models.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -33,9 +34,21 @@ public class IndexController {
 
     @RequestMapping("/listar")
     public String listar(Model model){
-        List<Usuario> usuarios = new ArrayList<>();
+
         model.addAttribute("titulo", "Listado de Usuarios");
-        model.addAttribute("usuarios", usuarios);
         return "listar";
+    }
+
+    //el model attribute sue usa para si queremos pasar datos a varias metodos del controlador y no repetir la mismo codigo en todos
+    @ModelAttribute("usuarios")
+    public List<Usuario> llenarUsuarios() {
+        List<Usuario> usuarios = new ArrayList<>();
+        usuarios.add(new Usuario("Andres", "Guzman", "usuario@gmail.com"));
+        usuarios.add(new Usuario("Jhon", "hernandez", "usuario2@gmail.com"));
+        usuarios.add(new Usuario("CHichjaro", "Chidomon", "usuario3@gmail.com"));
+        usuarios.add(new Usuario("Tornado", "Roe", "usuario4@gmail.com"));
+
+        return usuarios;
+
     }
 }
